@@ -49,7 +49,13 @@ class House:
         return self
 
     def __rsub__(self, other):
-        return House.__sub__(self, other)
+        if isinstance(other, int):
+            if self.number_of_floors < other:
+                self.number_of_floors = other - self.number_of_floors
+            else:
+                self.number_of_floors = 1  # допустим, что сдание не может иметь меньше одного этажа
+
+        return self
 
     def __isub__(self, other):
         return House.__sub__(self, other)
@@ -108,6 +114,9 @@ h1 -= 5
 print(h1)
 
 h2 = h2 - 5
+print(h2)
+
+h2 = 100 - h2
 print(h2)
 
 h2 -= 100
